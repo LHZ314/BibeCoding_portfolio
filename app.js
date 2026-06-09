@@ -258,6 +258,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Wheel Event Snapping ---
   window.addEventListener('wheel', (e) => {
+    if (window.innerWidth <= 768) return;
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || e.deltaY === 0) return;
+
     const currentIndex = getCurrentSectionIndex();
     const currentSec = sections[currentIndex];
     const viewportTop = window.scrollY;
@@ -298,11 +301,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let touchStartX = 0;
 
   window.addEventListener('touchstart', (e) => {
+    if (window.innerWidth <= 768) return;
     touchStartY = e.touches[0].clientY;
     touchStartX = e.touches[0].clientX;
   }, { passive: true });
 
   window.addEventListener('touchmove', (e) => {
+    if (window.innerWidth <= 768) return;
     if (isAnimating) {
       e.preventDefault();
       return;
