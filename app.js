@@ -128,16 +128,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Close menu on link click
+  // --- Scroll & Navigation System Setup ---
+  const sections = Array.from(document.querySelectorAll('section'));
+  const footer = document.querySelector('footer.main-footer');
+  if (footer) sections.push(footer);
+
   const navLinks = document.querySelectorAll('.nav-link');
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      playClickSound();
-      mobileToggle.classList.remove('active');
-      navMenu.classList.remove('active');
-      const spans = mobileToggle.querySelectorAll('span');
-      spans.forEach(s => s.style.transform = 'none');
-      spans[1].style.opacity = '1';
+  const skillSection = document.getElementById('profile');
+  const skillBars = document.querySelectorAll('.skill-stat-bar-fill');
+  let animationTriggered = false;
+  let isAnimating = false;
+
+  const getCurrentSectionIndex = () => {
+    let maxVisibleHeight = 0;
+    let index = 0;
+    const viewportTop = window.scrollY;
+    const viewportBottom = viewportTop + window.innerHeight;
+
+    sections.forEach((sec, idx) => {
+      const rect = sec.getBoundingClientRect();
+      const secTop = rect.top + viewportTop;
+      const secBottom = rect.bottom + viewportTop;
+      
+      const visibleTop = Math.max(secTop, viewportTop);
+      const visibleBottom = Math.min(secBottom, viewportBottom);
+      const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+      
+      if (visibleHeight > maxVisibleHeight) {
+        maxVisibleHeight = visibleHeight;
+        index = idx;
+      }
+    });
+    return index;
+  };
+
+  const smoothScrollTo = (targetY) => {
+    isAnimating = true;
+    window.scrollTo({
+      top: targetY,
+      behavior: 'smooth'
+    });
+    
+    setTimeout(() => {
+      isAnimating = false;
+    }, 850);
+  };
+
+  // Close menu on link click and handle smooth scroll for local links
+  const localLinks = document.querySelectorAll('a[href^="#"]');
+  localLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetId = link.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetSec = document.querySelector(targetId);
+      if (targetSec) {
+        e.preventDefault();
+        
+        if (link.classList.contains('nav-link')) {
+          playClickSound();
+          mobileToggle.classList.remove('active');
+          navMenu.classList.remove('active');
+          const spans = mobileToggle.querySelectorAll('span');
+          spans.forEach(s => s.style.transform = 'none');
+          spans[1].style.opacity = '1';
+        }
+        
+        const targetTop = targetSec.getBoundingClientRect().top + window.scrollY;
+        smoothScrollTo(targetTop);
+      }
     });
   });
 
@@ -150,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollPos = window.scrollY + 200;
 
     sections.forEach(section => {
+      if (section.tagName.toLowerCase() === 'footer') return;
       const sectionTop = section.offsetTop;
       const sectionHeight = section.clientHeight;
       if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
@@ -195,6 +255,92 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Trigger once on load
   setTimeout(handleScroll, 500);
+
+  // --- Wheel Event Snapping ---
+  window.addEventListener('wheel', (e) => {
+    const currentIndex = getCurrentSectionIndex();
+    const currentSec = sections[currentIndex];
+    const viewportTop = window.scrollY;
+    const viewportBottom = viewportTop + window.innerHeight;
+    const secRect = currentSec.getBoundingClientRect();
+    const secTop = secRect.top + viewportTop;
+    const secBottom = secRect.bottom + viewportTop;
+    
+    const threshold = 15;
+    const isAtBottom = (secBottom - viewportBottom <= threshold);
+    const isAtTop = (viewportTop - secTop <= threshold);
+    
+    const direction = e.deltaY > 0 ? 'down' : 'up';
+    
+    if (direction === 'down') {
+      if (isAtBottom && currentIndex < sections.length - 1) {
+        e.preventDefault();
+        if (!isAnimating) {
+          const nextSec = sections[currentIndex + 1];
+          const nextSecTop = nextSec.getBoundingClientRect().top + viewportTop;
+          smoothScrollTo(nextSecTop);
+        }
+      }
+    } else if (direction === 'up') {
+      if (isAtTop && currentIndex > 0) {
+        e.preventDefault();
+        if (!isAnimating) {
+          const prevSec = sections[currentIndex - 1];
+          const prevSecTop = prevSec.getBoundingClientRect().top + viewportTop;
+          smoothScrollTo(prevSecTop);
+        }
+      }
+    }
+  }, { passive: false });
+
+  // --- Touch Swipe Snapping ---
+  let touchStartY = 0;
+  let touchStartX = 0;
+
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (isAnimating) {
+      e.preventDefault();
+      return;
+    }
+    
+    const touchEndY = e.touches[0].clientY;
+    const touchEndX = e.touches[0].clientX;
+    
+    const diffY = touchStartY - touchEndY;
+    const diffX = touchStartX - touchEndX;
+    
+    if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 40) {
+      const direction = diffY > 0 ? 'down' : 'up';
+      const currentIndex = getCurrentSectionIndex();
+      const currentSec = sections[currentIndex];
+      const viewportTop = window.scrollY;
+      const viewportBottom = viewportTop + window.innerHeight;
+      const secRect = currentSec.getBoundingClientRect();
+      const secTop = secRect.top + viewportTop;
+      const secBottom = secRect.bottom + viewportTop;
+      
+      const threshold = 15;
+      const isAtBottom = (secBottom - viewportBottom <= threshold);
+      const isAtTop = (viewportTop - secTop <= threshold);
+      
+      if (direction === 'down' && isAtBottom && currentIndex < sections.length - 1) {
+        if (e.cancelable) e.preventDefault();
+        const nextSec = sections[currentIndex + 1];
+        const nextSecTop = nextSec.getBoundingClientRect().top + viewportTop;
+        smoothScrollTo(nextSecTop);
+      } else if (direction === 'up' && isAtTop && currentIndex > 0) {
+        if (e.cancelable) e.preventDefault();
+        const prevSec = sections[currentIndex - 1];
+        const prevSecTop = prevSec.getBoundingClientRect().top + viewportTop;
+        smoothScrollTo(prevSecTop);
+      }
+    }
+  }, { passive: false });
 
   // --- Faction/Specialization Interactive System ---
   const factionItems = document.querySelectorAll('.faction-item');
