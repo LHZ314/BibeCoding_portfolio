@@ -258,6 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Wheel Event Snapping ---
   window.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || e.deltaY === 0) return;
+
     const currentIndex = getCurrentSectionIndex();
     const currentSec = sections[currentIndex];
     const viewportTop = window.scrollY;
