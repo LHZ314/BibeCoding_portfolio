@@ -137,41 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const skillSection = document.getElementById('profile');
   const skillBars = document.querySelectorAll('.skill-stat-bar-fill');
   let animationTriggered = false;
-  let isAnimating = false;
-
-  const getCurrentSectionIndex = () => {
-    let maxVisibleHeight = 0;
-    let index = 0;
-    const viewportTop = window.scrollY;
-    const viewportBottom = viewportTop + window.innerHeight;
-
-    sections.forEach((sec, idx) => {
-      const rect = sec.getBoundingClientRect();
-      const secTop = rect.top + viewportTop;
-      const secBottom = rect.bottom + viewportTop;
-
-      const visibleTop = Math.max(secTop, viewportTop);
-      const visibleBottom = Math.min(secBottom, viewportBottom);
-      const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-
-      if (visibleHeight > maxVisibleHeight) {
-        maxVisibleHeight = visibleHeight;
-        index = idx;
-      }
-    });
-    return index;
-  };
 
   const smoothScrollTo = (targetY) => {
-    isAnimating = true;
     window.scrollTo({
       top: targetY,
       behavior: 'smooth'
     });
-
-    setTimeout(() => {
-      isAnimating = false;
-    }, 850);
   };
 
   // Close menu on link click and handle smooth scroll for local links
@@ -255,97 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Trigger once on load
   setTimeout(handleScroll, 500);
-
-  // --- Wheel Event Snapping ---
-  window.addEventListener('wheel', (e) => {
-    if (window.innerWidth <= 768) return;
-    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || e.deltaY === 0) return;
-
-    const currentIndex = getCurrentSectionIndex();
-    const currentSec = sections[currentIndex];
-    const viewportTop = window.scrollY;
-    const viewportBottom = viewportTop + window.innerHeight;
-    const secRect = currentSec.getBoundingClientRect();
-    const secTop = secRect.top + viewportTop;
-    const secBottom = secRect.bottom + viewportTop;
-
-    const threshold = 15;
-    const isAtBottom = (secBottom - viewportBottom <= threshold);
-    const isAtTop = (viewportTop - secTop <= threshold);
-
-    const direction = e.deltaY > 0 ? 'down' : 'up';
-
-    if (direction === 'down') {
-      if (isAtBottom && currentIndex < sections.length - 1) {
-        e.preventDefault();
-        if (!isAnimating) {
-          const nextSec = sections[currentIndex + 1];
-          const nextSecTop = nextSec.getBoundingClientRect().top + viewportTop;
-          smoothScrollTo(nextSecTop);
-        }
-      }
-    } else if (direction === 'up') {
-      if (isAtTop && currentIndex > 0) {
-        e.preventDefault();
-        if (!isAnimating) {
-          const prevSec = sections[currentIndex - 1];
-          const prevSecTop = prevSec.getBoundingClientRect().top + viewportTop;
-          smoothScrollTo(prevSecTop);
-        }
-      }
-    }
-  }, { passive: false });
-
-  // --- Touch Swipe Snapping ---
-  let touchStartY = 0;
-  let touchStartX = 0;
-
-  window.addEventListener('touchstart', (e) => {
-    if (window.innerWidth <= 768) return;
-    touchStartY = e.touches[0].clientY;
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-
-  window.addEventListener('touchmove', (e) => {
-    if (window.innerWidth <= 768) return;
-    if (isAnimating) {
-      e.preventDefault();
-      return;
-    }
-
-    const touchEndY = e.touches[0].clientY;
-    const touchEndX = e.touches[0].clientX;
-
-    const diffY = touchStartY - touchEndY;
-    const diffX = touchStartX - touchEndX;
-
-    if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 40) {
-      const direction = diffY > 0 ? 'down' : 'up';
-      const currentIndex = getCurrentSectionIndex();
-      const currentSec = sections[currentIndex];
-      const viewportTop = window.scrollY;
-      const viewportBottom = viewportTop + window.innerHeight;
-      const secRect = currentSec.getBoundingClientRect();
-      const secTop = secRect.top + viewportTop;
-      const secBottom = secRect.bottom + viewportTop;
-
-      const threshold = 15;
-      const isAtBottom = (secBottom - viewportBottom <= threshold);
-      const isAtTop = (viewportTop - secTop <= threshold);
-
-      if (direction === 'down' && isAtBottom && currentIndex < sections.length - 1) {
-        if (e.cancelable) e.preventDefault();
-        const nextSec = sections[currentIndex + 1];
-        const nextSecTop = nextSec.getBoundingClientRect().top + viewportTop;
-        smoothScrollTo(nextSecTop);
-      } else if (direction === 'up' && isAtTop && currentIndex > 0) {
-        if (e.cancelable) e.preventDefault();
-        const prevSec = sections[currentIndex - 1];
-        const prevSecTop = prevSec.getBoundingClientRect().top + viewportTop;
-        smoothScrollTo(prevSecTop);
-      }
-    }
-  }, { passive: false });
 
   // --- Faction/Specialization Interactive System ---
   const factionItems = document.querySelectorAll('.faction-item');
