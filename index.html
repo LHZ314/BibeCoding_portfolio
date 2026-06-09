@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <!-- SEO Meta Tags -->
   <title>PILOT LOG | 포트폴리오 데이터베이스</title>
-  <meta name="description" content="EVE Online 스타일의 SF 다크 모드 포트폴리오 웹사이트. 프론트엔드, 백엔드, 데브옵스 프로젝트 및 기술 정보를 테라바이트급 데이터 레이아웃으로 확인해보세요.">
+  <meta name="description"
+    content="EVE Online 스타일의 SF 다크 모드 포트폴리오 웹사이트. 프론트엔드, 백엔드, 데브옵스 프로젝트 및 기술 정보를 테라바이트급 데이터 레이아웃으로 확인해보세요.">
   <meta name="keywords" content="포트폴리오, 개발자 포트폴리오, SF 디자인, EVE Online 스타일, 프론트엔드 포트폴리오">
-  
+
   <!-- Open Graph -->
   <meta property="og:title" content="PILOT LOG | 포트폴리오 데이터베이스">
   <meta property="og:description" content="EVE Online의 Photon UI 스타일을 적용한 미래지향적 포트폴리오입니다.">
   <meta property="og:type" content="website">
-  
+
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
   <!-- Background Layers -->
@@ -33,7 +36,7 @@
         <span class="logo-text">PILOT DATABASE</span>
         <span class="logo-dot"></span>
       </a>
-      
+
       <nav>
         <ul class="nav-menu" id="navMenu">
           <li><a href="#hero" class="nav-link active" id="navHero">Overview</a></li>
@@ -43,11 +46,11 @@
           <li><a href="#contact" class="nav-link" id="navContact">Comms</a></li>
         </ul>
       </nav>
-      
+
       <div class="nav-actions">
         <a href="#contact" class="btn-eve" id="headerCta">Signal Pilot</a>
       </div>
-      
+
       <button class="mobile-toggle" id="mobileToggle" aria-label="메뉴 토글">
         <span></span>
         <span></span>
@@ -63,9 +66,9 @@
         <div class="hero-telemetry">
           <i class="fa-solid fa-satellite-dish"></i> SYSTEM ACTIVE // SECURE CONNECTION 100%
         </div>
-        <h1 class="hero-title">PILOT ID: HIGHTECH</h1>
+        <h1 class="hero-title">PILOT ID: Kim Jooyoung</h1>
         <p class="hero-subtitle">
-          신에덴의 광활한 은하계처럼 한계 없는 웹 생태계를 개발합니다. EVE Online 스타일의 강력하고 조화로운 인터페이스를 통해 구성된 프론트엔드 포트폴리오 시스템에 접속하신 것을 환영합니다.
+          은하계의 광활함처럼 한계 없는 웹 생태계를 개발합니다. 강력하고 조화로운 인터페이스를 통해 구성된 프론트엔드 포트폴리오 시스템에 접속하신 것을 환영합니다.
         </p>
         <div class="hero-actions">
           <a href="#specializations" class="btn-eve" id="heroCtaPrimary">Start Exploration</a>
@@ -84,19 +87,20 @@
         <span class="section-pretitle">SYSTEM CLASSIFICATION</span>
         <h2 class="section-title">Career Specializations</h2>
       </div>
-      
+
       <div class="specialization-layout">
         <!-- Factions list (Specializations) -->
         <div class="faction-list" id="factionList">
-          
-          <div class="faction-item active" data-faction="frontend" style="--faction-color: var(--accent-cyan);" id="factionFe">
+
+          <div class="faction-item active" data-faction="frontend" style="--faction-color: var(--accent-cyan);"
+            id="factionFe">
             <div class="faction-meta">
               <span class="faction-code">SECTOR 01 // CALDARI</span>
               <span class="faction-name">Frontend Development</span>
             </div>
             <i class="fa-solid fa-chevron-right faction-arrow"></i>
           </div>
-          
+
           <div class="faction-item" data-faction="backend" style="--faction-color: var(--accent-gold);" id="factionBe">
             <div class="faction-meta">
               <span class="faction-code">SECTOR 02 // AMARR</span>
@@ -104,7 +108,7 @@
             </div>
             <i class="fa-solid fa-chevron-right faction-arrow"></i>
           </div>
-          
+
           <div class="faction-item" data-faction="devops" style="--faction-color: var(--accent-green);" id="factionDev">
             <div class="faction-meta">
               <span class="faction-code">SECTOR 03 // GALLENTE</span>
@@ -112,7 +116,7 @@
             </div>
             <i class="fa-solid fa-chevron-right faction-arrow"></i>
           </div>
-          
+
           <div class="faction-item" data-faction="uiux" style="--faction-color: var(--accent-red);" id="factionDesign">
             <div class="faction-meta">
               <span class="faction-code">SECTOR 04 // MINMATAR</span>
@@ -120,9 +124,9 @@
             </div>
             <i class="fa-solid fa-chevron-right faction-arrow"></i>
           </div>
-          
+
         </div>
-        
+
         <!-- Faction detail panel -->
         <div class="detail-window photon-panel tech-corners" id="detailWindow">
           <div class="detail-header">
@@ -132,12 +136,13 @@
             </div>
             <span class="status-badge" id="detailStatus">ACTIVE // LEVEL V</span>
           </div>
-          
+
           <div class="detail-body">
             <p class="detail-description" id="detailDesc">
-              최첨단 우주선 콕핏(Cockpit) 인터페이스처럼, 사용자에게 압도적이고 매끄러운 시각적 경험을 제공하는 화면을 구현합니다. 성능 최적화, 반응형 레이아웃, 그리고 고급 애니메이션 처리에 탁월합니다.
+              최첨단 우주선 콕핏(Cockpit) 인터페이스처럼, 사용자에게 압도적이고 매끄러운 시각적 경험을 제공하는 화면을 구현합니다. 성능 최적화, 반응형 레이아웃, 그리고 고급 애니메이션 처리에
+              탁월합니다.
             </p>
-            
+
             <div class="detail-specs-grid">
               <div class="spec-item">
                 <span class="spec-label">Core Tech Stack</span>
@@ -157,7 +162,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="detail-footer">
             <span class="telemetry-ticker" id="detailTicker">SECTOR_ID: CALDARI_01 // LATENCY: 24MS</span>
             <a href="#projects" class="btn-eve-alt" id="detailCta">Show Sector Projects</a>
@@ -172,7 +177,7 @@
         <span class="section-pretitle">DATABANK CLUSTERS</span>
         <h2 class="section-title">Project Database</h2>
       </div>
-      
+
       <div class="project-database">
         <!-- Database Filters -->
         <div class="db-filters" id="dbFilters">
@@ -181,101 +186,10 @@
           <button class="db-filter-btn" data-filter="backend" id="filterBe">Backend Bases</button>
           <button class="db-filter-btn" data-filter="devops" id="filterDev">DevOps Carriers</button>
         </div>
-        
+
         <!-- Project Cards Grid -->
         <div class="project-grid" id="projectGrid">
-          
-          <!-- Project 1 -->
-          <div class="project-card photon-panel tech-corners" data-type="frontend" id="proj1">
-            <div class="project-media">
-              <div class="project-tech-overlays">
-                <span>CLASS: CARRIER</span>
-                <span>STATUS: STABLE</span>
-              </div>
-              <img src="assets/hero_space_bg.png" alt="Planetary Analyzer UI Screenshot" class="project-img">
-            </div>
-            <div class="project-content">
-              <div class="project-header-info">
-                <span class="project-type">Frontend Blueprint</span>
-                <h3 class="project-name">Planetary Resource Analyzer</h3>
-              </div>
-              <p class="project-desc">
-                행성의 다양한 자원 지형 및 잔여 광물량을 실시간 3D 그래픽과 차트로 모니터링할 수 있는 대시보드 웹 애플리케이션입니다.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Next.js</span>
-                <span class="project-tag">Three.js</span>
-                <span class="project-tag">D3.js</span>
-                <span class="project-tag">Tailwind</span>
-              </div>
-              <div class="project-actions">
-                <a href="#" class="btn-eve-alt project-link" id="proj1Demo">Launch Demo</a>
-                <a href="#" class="project-link" style="color: var(--text-muted);" id="proj1Git"><i class="fa-brands fa-github"></i> Source</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Project 2 -->
-          <div class="project-card photon-panel tech-corners" data-type="backend" id="proj2">
-            <div class="project-media">
-              <div class="project-tech-overlays">
-                <span>CLASS: BATTLESHIP</span>
-                <span>STATUS: OPERATIONAL</span>
-              </div>
-              <!-- Reusing nebula image as card background for consistency -->
-              <img src="assets/hero_space_bg.png" alt="Market API Screenshot" class="project-img" style="filter: hue-rotate(60deg);">
-            </div>
-            <div class="project-content">
-              <div class="project-header-info">
-                <span class="project-type">Backend Blueprint</span>
-                <h3 class="project-name">Galactic Market Real-Time Engine</h3>
-              </div>
-              <p class="project-desc">
-                은하계 전역의 마켓 시세 변동 데이터를 수집하고, 초당 1만 건의 패킷을 고속 처리하여 실시간 웹소켓 이벤트로 배포하는 백엔드 코어 모듈입니다.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Node.js</span>
-                <span class="project-tag">Go</span>
-                <span class="project-tag">Redis</span>
-                <span class="project-tag">WebSockets</span>
-              </div>
-              <div class="project-actions">
-                <a href="#" class="btn-eve-alt project-link" id="proj2Demo">Launch Demo</a>
-                <a href="#" class="project-link" style="color: var(--text-muted);" id="proj2Git"><i class="fa-brands fa-github"></i> Source</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Project 3 -->
-          <div class="project-card photon-panel tech-corners" data-type="devops" id="proj3">
-            <div class="project-media">
-              <div class="project-tech-overlays">
-                <span>CLASS: STATION</span>
-                <span>STATUS: COMPLETED</span>
-              </div>
-              <img src="assets/hero_space_bg.png" alt="Kubernetes Cluster Screenshot" class="project-img" style="filter: hue-rotate(180deg);">
-            </div>
-            <div class="project-content">
-              <div class="project-header-info">
-                <span class="project-type">DevOps Blueprint</span>
-                <h3 class="project-name">Nebula CI/CD Cluster Autoscaler</h3>
-              </div>
-              <p class="project-desc">
-                다수의 우주 기지(웹 서비스 노드)를 가상화하여 부하 상태에 따라 자동으로 리소스를 확장 및 축소하는 하이브리드 Kubernetes 오케스트레이션 구성안입니다.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">AWS</span>
-                <span class="project-tag">Kubernetes</span>
-                <span class="project-tag">Terraform</span>
-                <span class="project-tag">Github Actions</span>
-              </div>
-              <div class="project-actions">
-                <a href="#" class="btn-eve-alt project-link" id="proj3Demo">Launch Demo</a>
-                <a href="#" class="project-link" style="color: var(--text-muted);" id="proj3Git"><i class="fa-brands fa-github"></i> Source</a>
-              </div>
-            </div>
-          </div>
-
+          <!-- TODO: Add your project blueprints here. Image assets are preserved in the assets folder. -->
         </div>
       </div>
     </section>
@@ -286,38 +200,39 @@
         <span class="section-pretitle">PILOT DOSSIER</span>
         <h2 class="section-title">Character Fitting</h2>
       </div>
-      
+
       <div class="profile-layout">
         <!-- Interactive Ship Fitting Visualizer -->
         <div class="profile-fitting-window" id="fittingWindow">
           <div class="fitting-circle-outer">
             <div class="fitting-circle-inner"></div>
           </div>
-          
-          <div class="profile-avatar-container">
-            <img src="assets/space_pilot_avatar.png" alt="Pilot Avatar Picture" class="profile-avatar-img" id="pilotAvatar">
+
+          <div class="profile-avatar-container" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 229, 255, 0.05);">
+            <i class="fa-solid fa-user-astronaut" id="pilotAvatar" style="font-size: 5rem; color: var(--accent-active); filter: drop-shadow(0 0 10px var(--accent-active-glow)); transition: color var(--transition-medium), filter var(--transition-medium);"></i>
           </div>
-          
+
           <!-- EVE Style Tech Slots -->
           <div class="fitting-slot slot-1 tech-corners" title="CPU Operation Rate" id="slotCpu">CPU</div>
           <div class="fitting-slot slot-2 tech-corners" title="Shield Generator Capacity" id="slotShield">SHD</div>
           <div class="fitting-slot slot-3 tech-corners" title="Warp Core Engine Boost" id="slotWarp">WRP</div>
           <div class="fitting-slot slot-4 tech-corners" title="Armor Plating Defense" id="slotArmor">ARM</div>
         </div>
-        
+
         <!-- Pilot Metadata Bio -->
         <div class="profile-info-content">
           <div class="biography-box photon-panel tech-corners" id="bioBox">
             <h3 class="bio-title">System Administrator Logs</h3>
             <p class="bio-text">
-              "새로운 은하에 진출하는 조종사(Pilot)처럼, 저는 웹 표준과 아키텍처의 한계를 개척해 나가는 개발자입니다. 복잡한 시스템의 병목 현상을 파악하여 견고하게 튜닝하고, 신뢰성 높은 프론트엔드 환경을 구축하는 것에 심취해 있습니다."
+              "새로운 은하에 진출하는 조종사(Pilot)처럼, 저는 웹 표준과 아키텍처의 한계를 개척해 나가는 개발자입니다. 복잡한 시스템의 병목 현상을 파악하여 견고하게 튜닝하고, 신뢰성 높은
+              프론트엔드 환경을 구축하는 것에 심취해 있습니다."
             </p>
           </div>
-          
+
           <!-- Skills Progress telemetry -->
           <div class="skills-telemetry" id="skillsTelemetry">
             <h3 class="bio-title">Modular Subsystems (Skills)</h3>
-            
+
             <div class="skill-stat-item" id="skillFe">
               <div class="skill-stat-label">
                 <span class="skill-stat-name">Tactical Frontend Systems (JavaScript/TypeScript)</span>
@@ -327,7 +242,7 @@
                 <div class="skill-stat-bar-fill" style="width: 0%;" data-level="90%"></div>
               </div>
             </div>
-            
+
             <div class="skill-stat-item" id="skillBe">
               <div class="skill-stat-label">
                 <span class="skill-stat-name">Core Storage Subsystems (Node.js/Database)</span>
@@ -337,7 +252,7 @@
                 <div class="skill-stat-bar-fill" style="width: 0%;" data-level="75%"></div>
               </div>
             </div>
-            
+
             <div class="skill-stat-item" id="skillDesign">
               <div class="skill-stat-label">
                 <span class="skill-stat-name">Holographic Projector UI (HTML5/CSS3)</span>
@@ -347,7 +262,7 @@
                 <div class="skill-stat-bar-fill" style="width: 0%;" data-level="85%"></div>
               </div>
             </div>
-            
+
             <div class="skill-stat-item" id="skillDev">
               <div class="skill-stat-label">
                 <span class="skill-stat-name">Warp-Drive Deployment (DevOps & CI/CD)</span>
@@ -357,7 +272,7 @@
                 <div class="skill-stat-bar-fill" style="width: 0%;" data-level="80%"></div>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -369,12 +284,12 @@
         <span class="section-pretitle">ESTABLISH COMMS</span>
         <h2 class="section-title">Encrypted Transmission</h2>
       </div>
-      
+
       <div class="contact-layout">
         <div class="terminal-window photon-panel tech-corners" id="terminalWindow">
           <div class="terminal-header">
             <div class="terminal-title">
-              <span class="terminal-status-dot"></span> BROADCAST CHANNEL: SECURE_COMMS_V4.1
+              <span class="terminal-status-dot"></span> BROADCAST CHANNEL
             </div>
             <div class="terminal-dots">
               <span></span>
@@ -382,21 +297,25 @@
               <span></span>
             </div>
           </div>
-          
-          <form class="terminal-form" id="contactForm" onsubmit="event.preventDefault(); alert('Transmission queued. Subspace network broadcast initiated!');">
+
+          <form class="terminal-form" id="contactForm"
+            onsubmit="event.preventDefault(); alert('Transmission queued. Subspace network broadcast initiated!');">
             <div class="form-group">
               <label for="pilotName" class="form-label">Pilot Call Sign / Name</label>
-              <input type="text" id="pilotName" class="form-input tech-corners" placeholder="Enter your identity..." required>
+              <input type="text" id="pilotName" class="form-input tech-corners" placeholder="Enter your identity..."
+                required>
             </div>
             <div class="form-group">
               <label for="pilotEmail" class="form-label">Subspace Link / Email Address</label>
-              <input type="email" id="pilotEmail" class="form-input tech-corners" placeholder="pilot@domain.net" required>
+              <input type="email" id="pilotEmail" class="form-input tech-corners" placeholder="pilot@domain.net"
+                required>
             </div>
             <div class="form-group">
               <label for="transmissionMsg" class="form-label">Encrypted Message Body</label>
-              <textarea id="transmissionMsg" class="form-input tech-corners" placeholder="Input your telemetry transmission details here..." required></textarea>
+              <textarea id="transmissionMsg" class="form-input tech-corners"
+                placeholder="Input your telemetry transmission details here..." required></textarea>
             </div>
-            
+
             <div class="form-terminal-footer">
               <span class="transmission-speed">TX BANDWIDTH: 928.4 TB/S</span>
               <button type="submit" class="btn-eve" id="sendBtn">Transmit Signal</button>
@@ -427,4 +346,5 @@
   <!-- JS Scripts -->
   <script src="app.js"></script>
 </body>
+
 </html>

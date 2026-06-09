@@ -141,9 +141,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Active Navigation Highlighting on Scroll ---
-  const sections = document.querySelectorAll('section');
-  window.addEventListener('scroll', () => {
+  // --- Combined Throttled Scroll Listener (requestAnimationFrame) ---
+  let scrollTick = false;
+  
+  const handleScroll = () => {
+    // 1. Active Navigation Highlighting
     let current = '';
     const scrollPos = window.scrollY + 200;
 
@@ -161,7 +163,38 @@ document.addEventListener('DOMContentLoaded', () => {
         link.classList.add('active');
       }
     });
+
+    // 2. Skill Progress Bar Scroll Animation
+    if (!animationTriggered && skillSection) {
+      const sectionTop = skillSection.getBoundingClientRect().top;
+      const triggerPoint = window.innerHeight - 100;
+
+      if (sectionTop < triggerPoint) {
+        skillBars.forEach(bar => {
+          const level = bar.getAttribute('data-level');
+          bar.style.width = level;
+        });
+        
+        // Play a quick charging sound for skills
+        playSound(300, 'sawtooth', 0.5, 0.02);
+        setTimeout(() => playSound(900, 'sine', 0.2, 0.03), 400);
+        
+        animationTriggered = true;
+      }
+    }
+    
+    scrollTick = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!scrollTick) {
+      window.requestAnimationFrame(handleScroll);
+      scrollTick = true;
+    }
   });
+
+  // Trigger once on load
+  setTimeout(handleScroll, 500);
 
   // --- Faction/Specialization Interactive System ---
   const factionItems = document.querySelectorAll('.faction-item');
@@ -192,27 +225,33 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Shift nebula background color slightly based on sector
       const nebulaBg = document.getElementById('nebulaBg');
-      if (factionType === 'frontend') nebulaBg.style.filter = 'hue-rotate(0deg)';
-      if (factionType === 'backend') nebulaBg.style.filter = 'hue-rotate(60deg)';
-      if (factionType === 'devops') nebulaBg.style.filter = 'hue-rotate(120deg)';
-      if (factionType === 'uiux') nebulaBg.style.filter = 'hue-rotate(-60deg)';
+      if (nebulaBg) {
+        if (factionType === 'frontend') nebulaBg.style.filter = 'hue-rotate(0deg)';
+        if (factionType === 'backend') nebulaBg.style.filter = 'hue-rotate(60deg)';
+        if (factionType === 'devops') nebulaBg.style.filter = 'hue-rotate(120deg)';
+        if (factionType === 'uiux') nebulaBg.style.filter = 'hue-rotate(-60deg)';
+      }
 
       // Update content elements with subtle fade animation
-      detailWindow.style.opacity = '0.5';
-      detailWindow.style.transform = 'translateY(5px)';
+      if (detailWindow) {
+        detailWindow.style.opacity = '0.5';
+        detailWindow.style.transform = 'translateY(5px)';
+      }
       
       setTimeout(() => {
-        detailName.textContent = data.name;
-        detailSlogan.textContent = data.slogan;
-        detailDesc.textContent = data.desc;
-        detailStack.textContent = data.stack;
-        detailSpeciality.textContent = data.speciality;
-        detailPriority.textContent = data.priority;
-        detailData.textContent = data.data;
-        detailTicker.textContent = data.ticker;
+        if (detailName) detailName.textContent = data.name;
+        if (detailSlogan) detailSlogan.textContent = data.slogan;
+        if (detailDesc) detailDesc.textContent = data.desc;
+        if (detailStack) detailStack.textContent = data.stack;
+        if (detailSpeciality) detailSpeciality.textContent = data.speciality;
+        if (detailPriority) detailPriority.textContent = data.priority;
+        if (detailData) detailData.textContent = data.data;
+        if (detailTicker) detailTicker.textContent = data.ticker;
         
-        detailWindow.style.opacity = '1';
-        detailWindow.style.transform = 'none';
+        if (detailWindow) {
+          detailWindow.style.opacity = '1';
+          detailWindow.style.transform = 'none';
+        }
       }, 150);
     });
   });
@@ -250,35 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
-
-  // --- Skill Progress Bar Scroll Animation ---
-  const skillSection = document.getElementById('profile');
-  const skillBars = document.querySelectorAll('.skill-stat-bar-fill');
-  let animationTriggered = false;
-
-  const animateSkills = () => {
-    if (animationTriggered) return;
-    
-    const sectionTop = skillSection.getBoundingClientRect().top;
-    const triggerPoint = window.innerHeight - 100;
-
-    if (sectionTop < triggerPoint) {
-      skillBars.forEach(bar => {
-        const level = bar.getAttribute('data-level');
-        bar.style.width = level;
-      });
-      
-      // Play a quick charging sound for skills
-      playSound(300, 'sawtooth', 0.5, 0.02);
-      setTimeout(() => playSound(900, 'sine', 0.2, 0.03), 400);
-      
-      animationTriggered = true;
-    }
-  };
-
-  window.addEventListener('scroll', animateSkills);
-  // Trigger on load in case section is already in view
-  setTimeout(animateSkills, 500);
 
   // --- Setup Sound Effects on Buttons ---
   const normalButtons = document.querySelectorAll('.btn-eve, .btn-eve-alt, .project-link, .logo-link');
