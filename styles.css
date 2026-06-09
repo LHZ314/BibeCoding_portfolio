@@ -1263,21 +1263,47 @@ textarea.form-input {
   }
   
   .fitting-circle-outer {
-    width: 290px;
-    height: 290px;
+    width: 280px;
+    height: 280px;
   }
   
   .fitting-circle-inner {
-    width: 240px;
-    height: 240px;
+    width: 230px;
+    height: 230px;
   }
   
   .profile-avatar-container {
-    width: 180px;
-    height: 180px;
+    width: 170px;
+    height: 170px;
   }
   
   .terminal-form {
     padding: 1.5rem;
+  }
+
+  .section-container {
+    padding: 4rem 1.25rem;
+  }
+}
+
+/* Extra Small Devices (Phones under 480px) */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+  }
+
+  .profile-fitting-window {
+    transform: scale(0.85);
+    transform-origin: center center;
+    margin: -1.5rem auto; /* Adjust margin to compensate for scale shrinking */
+  }
+
+  .detail-window {
+    padding: 1.25rem;
+  }
+
+  .detail-faction-name {
+    font-size: 1.35rem;
   }
 }
