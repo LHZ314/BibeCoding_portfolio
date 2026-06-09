@@ -913,6 +913,8 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
   animation: rotateOuter 60s linear infinite;
 }
 
@@ -936,6 +938,8 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
   animation: rotateInner 40s linear infinite reverse;
 }
 
@@ -1306,11 +1310,11 @@ textarea.form-input {
     letter-spacing: 2px;
     word-break: keep-all;
   }
-  
+
   .hero-subtitle {
     font-size: 1rem;
   }
-  
+
   .hero-actions {
     flex-direction: column;
     width: 100%;
@@ -1321,130 +1325,51 @@ textarea.form-input {
     font-size: 1.5rem;
     letter-spacing: 2px;
   }
-  
+
   .project-grid {
     grid-template-columns: 1fr;
   }
-  
-  .specialization-layout {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .faction-list {
-    flex-direction: row;
-    overflow-x: auto;
-    display: flex;
-    gap: 0.5rem;
-    padding-bottom: 0.5rem;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .faction-list::-webkit-scrollbar {
-    display: none;
-  }
-
-  .faction-item {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-    padding: 0.6rem 1rem;
-    min-width: 130px;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .faction-item::before {
-    display: none;
-  }
-
-  .faction-arrow {
-    display: none;
-  }
-
-  .faction-meta {
-    gap: 2px;
-    align-items: center;
-  }
-
-  .faction-code {
-    font-size: 0.6rem;
-    letter-spacing: 1px;
-  }
-
-  .faction-name {
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-  }
 
   .detail-window {
-    padding: 1.25rem;
-    min-height: auto;
-    border-left-width: 3px;
+    padding: 1.5rem;
   }
-  
+
   .detail-faction-name {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     word-break: keep-all;
-  }
-
-  .detail-slogan {
-    font-size: 0.75rem;
-  }
-
-  .detail-description {
-    font-size: 0.85rem;
-    line-height: 1.5;
   }
 
   .detail-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+    gap: 1rem;
   }
 
   .detail-footer {
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 1rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
   }
 
   #detailCta {
     width: 100%;
     text-align: center;
-    padding: 0.55rem 1rem;
-    font-size: 0.75rem;
   }
-  
+
   .detail-specs-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    padding: 0.75rem;
+    grid-template-columns: 1fr;
   }
 
-  .spec-label {
-    font-size: 0.65rem;
-  }
-
-  .spec-value {
-    font-size: 0.8rem;
-  }
-  
   .fitting-circle-outer {
     width: 240px;
     height: 240px;
   }
-  
+
   .fitting-circle-inner {
     width: 190px;
     height: 190px;
   }
-  
+
   .profile-avatar-container {
     width: 140px;
     height: 140px;
@@ -1453,7 +1378,7 @@ textarea.form-input {
   .profile-section {
     overflow: hidden;
   }
-  
+
   .terminal-form {
     padding: 1.5rem 1rem;
   }
@@ -1476,5 +1401,35 @@ textarea.form-input {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
+  }
+
+  /* Mobile GPU performance optimizations */
+  .photon-panel {
+    backdrop-filter: none !important;
+    background: var(--bg-panel-solid) !important;
+  }
+
+  .main-header {
+    backdrop-filter: none !important;
+    background: #06080f !important;
+  }
+
+  .nav-menu {
+    backdrop-filter: none !important;
+    background: rgba(6, 8, 15, 0.98) !important;
+  }
+
+  .scanlines {
+    display: none !important;
+  }
+
+  .nebula-bg {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .project-media::before {
+    animation: none !important;
+    display: none !important;
   }
 }

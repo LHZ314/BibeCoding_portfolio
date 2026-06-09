@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       osc.type = type;
       osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      
+
       gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
       gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
 
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     playClickSound();
     mobileToggle.classList.toggle('active');
     navMenu.classList.toggle('active');
-    
+
     // Animate hamburger lines
     const spans = mobileToggle.querySelectorAll('span');
     if (mobileToggle.classList.contains('active')) {
@@ -149,11 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = sec.getBoundingClientRect();
       const secTop = rect.top + viewportTop;
       const secBottom = rect.bottom + viewportTop;
-      
+
       const visibleTop = Math.max(secTop, viewportTop);
       const visibleBottom = Math.min(secBottom, viewportBottom);
       const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-      
+
       if (visibleHeight > maxVisibleHeight) {
         maxVisibleHeight = visibleHeight;
         index = idx;
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
       top: targetY,
       behavior: 'smooth'
     });
-    
+
     setTimeout(() => {
       isAnimating = false;
     }, 850);
@@ -180,11 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', (e) => {
       const targetId = link.getAttribute('href');
       if (targetId === '#') return;
-      
+
       const targetSec = document.querySelector(targetId);
       if (targetSec) {
         e.preventDefault();
-        
+
         if (link.classList.contains('nav-link')) {
           playClickSound();
           mobileToggle.classList.remove('active');
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
           spans.forEach(s => s.style.transform = 'none');
           spans[1].style.opacity = '1';
         }
-        
+
         const targetTop = targetSec.getBoundingClientRect().top + window.scrollY;
         smoothScrollTo(targetTop);
       }
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Combined Throttled Scroll Listener (requestAnimationFrame) ---
   let scrollTick = false;
-  
+
   const handleScroll = () => {
     // 1. Active Navigation Highlighting
     let current = '';
@@ -234,15 +234,15 @@ document.addEventListener('DOMContentLoaded', () => {
           const level = bar.getAttribute('data-level');
           bar.style.width = level;
         });
-        
+
         // Play a quick charging sound for skills
         playSound(300, 'sawtooth', 0.5, 0.02);
         setTimeout(() => playSound(900, 'sine', 0.2, 0.03), 400);
-        
+
         animationTriggered = true;
       }
     }
-    
+
     scrollTick = false;
   };
 
@@ -258,8 +258,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Wheel Event Snapping ---
   window.addEventListener('wheel', (e) => {
-    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || e.deltaY === 0) return;
-
     const currentIndex = getCurrentSectionIndex();
     const currentSec = sections[currentIndex];
     const viewportTop = window.scrollY;
@@ -267,13 +265,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const secRect = currentSec.getBoundingClientRect();
     const secTop = secRect.top + viewportTop;
     const secBottom = secRect.bottom + viewportTop;
-    
+
     const threshold = 15;
     const isAtBottom = (secBottom - viewportBottom <= threshold);
     const isAtTop = (viewportTop - secTop <= threshold);
-    
+
     const direction = e.deltaY > 0 ? 'down' : 'up';
-    
+
     if (direction === 'down') {
       if (isAtBottom && currentIndex < sections.length - 1) {
         e.preventDefault();
@@ -309,13 +307,13 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       return;
     }
-    
+
     const touchEndY = e.touches[0].clientY;
     const touchEndX = e.touches[0].clientX;
-    
+
     const diffY = touchStartY - touchEndY;
     const diffX = touchStartX - touchEndX;
-    
+
     if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 40) {
       const direction = diffY > 0 ? 'down' : 'up';
       const currentIndex = getCurrentSectionIndex();
@@ -325,11 +323,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const secRect = currentSec.getBoundingClientRect();
       const secTop = secRect.top + viewportTop;
       const secBottom = secRect.bottom + viewportTop;
-      
+
       const threshold = 15;
       const isAtBottom = (secBottom - viewportBottom <= threshold);
       const isAtTop = (viewportTop - secTop <= threshold);
-      
+
       if (direction === 'down' && isAtBottom && currentIndex < sections.length - 1) {
         if (e.cancelable) e.preventDefault();
         const nextSec = sections[currentIndex + 1];
@@ -359,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
   factionItems.forEach(item => {
     item.addEventListener('click', () => {
       playTabSound();
-      
+
       // Update active state in UI
       factionItems.forEach(fi => fi.classList.remove('active'));
       item.classList.add('active');
@@ -370,14 +368,16 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update color variables on root for dynamic accent shift
       document.documentElement.style.setProperty('--accent-active', data.color);
       document.documentElement.style.setProperty('--accent-active-glow', data.colorGlow);
-      
-      // Shift nebula background color slightly based on sector
+
+      // Shift nebula background color slightly based on sector (Desktop only for performance)
       const nebulaBg = document.getElementById('nebulaBg');
-      if (nebulaBg) {
+      if (nebulaBg && window.innerWidth > 768) {
         if (factionType === 'frontend') nebulaBg.style.filter = 'hue-rotate(0deg)';
         if (factionType === 'backend') nebulaBg.style.filter = 'hue-rotate(60deg)';
         if (factionType === 'devops') nebulaBg.style.filter = 'hue-rotate(120deg)';
         if (factionType === 'uiux') nebulaBg.style.filter = 'hue-rotate(-60deg)';
+      } else if (nebulaBg) {
+        nebulaBg.style.filter = 'none';
       }
 
       // Update content elements with subtle fade animation
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
         detailWindow.style.opacity = '0.5';
         detailWindow.style.transform = 'translateY(5px)';
       }
-      
+
       setTimeout(() => {
         if (detailName) detailName.textContent = data.name;
         if (detailSlogan) detailSlogan.textContent = data.slogan;
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (detailPriority) detailPriority.textContent = data.priority;
         if (detailData) detailData.textContent = data.data;
         if (detailTicker) detailTicker.textContent = data.ticker;
-        
+
         if (detailWindow) {
           detailWindow.style.opacity = '1';
           detailWindow.style.transform = 'none';
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       playTabSound();
-      
+
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
@@ -455,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Math.floor(Math.random() * 1000) + '.' + Math.floor(Math.random() * 99),
       Math.floor(Math.random() * 1000) + '.' + Math.floor(Math.random() * 99)
     ];
-    
+
     const ticker = document.getElementById('detailTicker');
     if (ticker) {
       const baseText = ticker.textContent.split(' // ')[0];
